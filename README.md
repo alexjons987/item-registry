@@ -1,2 +1,5 @@
-# item-registry
-Final assignment. A REST API for registering, filtering and querying metadata-rich entities.
+# Final assignment: Item Registry
+A REST API for registering, filtering and querying metadata-rich entities.
+
+## Assignment
+You can read the entire assignment and requirements [here](https://github.com/alexjons987/item-registry/blob/main/assignment.md).
