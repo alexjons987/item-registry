@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-public class User {
+public class UserAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private Set<Item> items;
 
-    public User() {
+    public UserAccount() {
     }
 
-    public User(String username, String password) {
+    public UserAccount(String username, String password) {
         this.username = username;
         this.password = password;
     }

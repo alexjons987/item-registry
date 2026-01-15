@@ -18,7 +18,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User owner;
+    private UserAccount owner;
 
     public Item() {
     }
@@ -58,11 +58,11 @@ public class Item {
         this.value = value;
     }
 
-    public User getOwner() {
+    public UserAccount getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(UserAccount owner) {
         this.owner = owner;
     }
 }
