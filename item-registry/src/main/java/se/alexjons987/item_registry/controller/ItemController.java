@@ -1,12 +1,10 @@
 package se.alexjons987.item_registry.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/items")
+@RestController
+@RequestMapping("/items")
 public class ItemController {
 
     // Add item POST
