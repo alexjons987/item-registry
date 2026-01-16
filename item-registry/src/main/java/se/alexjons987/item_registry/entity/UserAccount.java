@@ -74,4 +74,12 @@ public class UserAccount {
     public void setItems(Set<Item> items) {
         this.items = items;
     }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
 }
