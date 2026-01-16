@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "user_accounts")
 public class UserAccount {
 
     @Id
