@@ -16,6 +16,7 @@ import se.alexjons987.item_registry.repository.AchievementRepository;
 import se.alexjons987.item_registry.repository.InventoryRepository;
 import se.alexjons987.item_registry.repository.UserRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,6 +33,15 @@ public class InventoryService {
 
     @Autowired
     ItemMapper itemMapper;
+
+    public List<ItemResponseDTO> getCurrentUserInventory(Authentication authentication) {
+        UserAccount user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return user.getItems().stream()
+                .map(itemMapper::toResponseDTO)
+                .toList();
+    }
 
     public ItemResponseDTO addNewItem(ItemRequestDTO itemRequestDTO, Authentication authentication) {
 

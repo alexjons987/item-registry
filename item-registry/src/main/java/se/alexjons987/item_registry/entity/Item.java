@@ -106,4 +106,15 @@ public class Item {
     public void setOwner(UserAccount owner) {
         this.owner = owner;
     }
+
+    public String toString() {
+        return String.format(
+                "[%d] %s %s - lvl: %d (%d)", // [2] Collector's Cozy Camper - lvl: 1 ()
+                this.getId(),
+                this.getQuality(),
+                this.getName(),
+                this.getLevel(),
+                this.getValue()
+        );
+    }
 }

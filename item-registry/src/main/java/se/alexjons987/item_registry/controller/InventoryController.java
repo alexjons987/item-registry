@@ -17,7 +17,7 @@ public class InventoryController {
 
     @GetMapping
     public ResponseEntity<?> getCurrentUserInventory(Authentication authentication) {
-        return ResponseEntity.status(501).build(); // TODO: Implement
+        return ResponseEntity.ok(inventoryService.getCurrentUserInventory(authentication));
     }
 
     // Add item POST
