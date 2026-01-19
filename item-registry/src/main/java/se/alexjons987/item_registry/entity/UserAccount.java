@@ -2,10 +2,12 @@ package se.alexjons987.item_registry.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_accounts")
+@Table(name = "users")
 public class UserAccount {
 
     @Id
@@ -15,6 +17,14 @@ public class UserAccount {
     private String username;
     private String password;
     private Long value;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_achievements",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private Set<UserAchievement> achievements = new HashSet<>();
 
     @OneToMany(mappedBy = "owner")
     private Set<Item> items;
@@ -30,9 +40,10 @@ public class UserAccount {
     public UserAccount() {
     }
 
-    public UserAccount(String username, String password) {
+    public UserAccount(String username, String password, Long value) {
         this.username = username;
         this.password = password;
+        this.value = value;
     }
 
     public Long getId() {
@@ -65,6 +76,14 @@ public class UserAccount {
 
     public void setValue(Long value) {
         this.value = value;
+    }
+
+    public Set<UserAchievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Set<UserAchievement> achievements) {
+        this.achievements = achievements;
     }
 
     public Set<Item> getItems() {

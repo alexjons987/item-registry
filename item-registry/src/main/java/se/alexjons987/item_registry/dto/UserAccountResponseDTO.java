@@ -6,14 +6,16 @@ public class UserAccountResponseDTO {
 
     private String username;
     private Long value;
+    private List<String> achievements;
     private List<String> roles;
 
     public UserAccountResponseDTO() {
     }
 
-    public UserAccountResponseDTO(String username, Long value, List<String> roles) {
+    public UserAccountResponseDTO(String username, Long value, List<String> achievements, List<String> roles) {
         this.username = username;
         this.value = value;
+        this.achievements = achievements;
         this.roles = roles;
     }
 
@@ -23,6 +25,10 @@ public class UserAccountResponseDTO {
 
     public Long getValue() {
         return value;
+    }
+
+    public List<String> getAchievements() {
+        return achievements;
     }
 
     public List<String> getRoles() {

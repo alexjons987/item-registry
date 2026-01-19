@@ -2,6 +2,7 @@ package se.alexjons987.item_registry.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import se.alexjons987.item_registry.enums.Quality;
 
 @Entity
 @Table(name = "items")
@@ -12,7 +13,16 @@ public class Item {
     private Long id;
 
     @NotNull
+    private Integer level;
+
+    @NotNull
     private String name;
+
+    @NotNull
+    private Quality quality;
+
+    @NotNull
+    private String origin;
 
     @NotNull
     private Long value;
@@ -24,14 +34,20 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, Long value) {
+    public Item(Integer level, String name, Quality quality, String origin, Long value) {
+        this.level = level;
         this.name = name;
+        this.quality = quality;
+        this.origin = origin;
         this.value = value;
     }
 
-    public Item(Long id, String name, Long value) {
+    public Item(Long id, Integer level, String name, Quality quality, String origin, Long value) {
         this.id = id;
+        this.level = level;
         this.name = name;
+        this.quality = quality;
+        this.origin = origin;
         this.value = value;
     }
 
@@ -43,12 +59,36 @@ public class Item {
         this.id = id;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Quality getQuality() {
+        return quality;
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public Long getValue() {
