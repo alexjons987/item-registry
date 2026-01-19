@@ -28,7 +28,7 @@ public class Item {
     private Long value;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "owner_id")
     private UserAccount owner;
 
     public Item() {
