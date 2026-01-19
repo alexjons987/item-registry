@@ -13,16 +13,16 @@ import se.alexjons987.item_registry.enums.Quality;
 import se.alexjons987.item_registry.exception.AchievementNotFoundException;
 import se.alexjons987.item_registry.mapper.ItemMapper;
 import se.alexjons987.item_registry.repository.AchievementRepository;
-import se.alexjons987.item_registry.repository.ItemRepository;
+import se.alexjons987.item_registry.repository.InventoryRepository;
 import se.alexjons987.item_registry.repository.UserRepository;
 
 import java.util.Set;
 
 @Service
-public class ItemService {
+public class InventoryService {
 
     @Autowired
-    ItemRepository itemRepository;
+    InventoryRepository inventoryRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -47,7 +47,7 @@ public class ItemService {
         item.setValue(itemRequestDTO.getValue());
         item.setOwner(user);
 
-        Item savedItem = itemRepository.save(item);
+        Item savedItem = inventoryRepository.save(item);
 
         Long newAccountValue = user.getValue() + itemRequestDTO.getValue();
         user.setValue(newAccountValue);

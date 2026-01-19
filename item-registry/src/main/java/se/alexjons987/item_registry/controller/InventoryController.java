@@ -6,19 +6,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import se.alexjons987.item_registry.dto.ItemRequestDTO;
-import se.alexjons987.item_registry.service.ItemService;
+import se.alexjons987.item_registry.service.InventoryService;
 
 @RestController
-@RequestMapping("/items")
-public class ItemController {
+@RequestMapping("/inventory")
+public class InventoryController {
 
     @Autowired
-    ItemService itemService;
+    InventoryService inventoryService;
+
+    @GetMapping
+    public ResponseEntity<?> getCurrentUserInventory(Authentication authentication) {
+        return ResponseEntity.status(501).build(); // TODO: Implement
+    }
 
     // Add item POST
     @PostMapping("/add")
     public ResponseEntity<?> addItem(@Valid @RequestBody ItemRequestDTO itemReqDTO, Authentication authentication) {
-        return ResponseEntity.ok(itemService.addNewItem(itemReqDTO, authentication));
+        return ResponseEntity.ok(inventoryService.addNewItem(itemReqDTO, authentication));
     }
 
     // Remove item DELETE

@@ -3,7 +3,6 @@ package se.alexjons987.item_registry.entity;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

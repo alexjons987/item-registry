@@ -46,14 +46,13 @@ You will develop a backend system (API) in Java with Spring Boot.
   * 2–3 related tables (relationships should be used, e.g. OneToMany) ✔️
 * Database structure should be reasonably normalized ✔️
 ### 3.4 Docker
-* The application should be containerized
+* The application should be containerized ❌
 * Requirements:
-  * `Dockerfile` for the Spring Boot application
-  * `docker-compose.yml` that starts:
+  * `Dockerfile` for the Spring Boot application ❌
+  * `docker-compose.yml` that starts: ❌
     * The backend application
     * The MySQL database
-The application should be able to be started with:
-docker-compose up
+The application should be able to be started with: `docker-compose up` ❌
 ### 3.5 Testing
 * The project should contain **automated tests**
 * At least:
