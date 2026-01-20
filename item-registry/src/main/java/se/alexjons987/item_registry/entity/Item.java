@@ -19,12 +19,15 @@ public class Item {
     private String name;
 
     @NotNull
+    @Column(columnDefinition = "VARCHAR(50)")
+    @Enumerated(EnumType.STRING)
     private Quality quality;
 
     @NotNull
     private String origin;
 
     @NotNull
+    @Column(name = "item_value")
     private Long value;
 
     @ManyToOne

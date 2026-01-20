@@ -15,6 +15,8 @@ public class UserAccount {
 
     private String username;
     private String password;
+
+    @Column(name = "account_value")
     private Long value;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -26,7 +28,7 @@ public class UserAccount {
     private Set<UserAchievement> achievements = new HashSet<>();
 
     @OneToMany(mappedBy = "owner")
-    private Set<Item> items;
+    private Set<Item> items = new HashSet<>();;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -34,7 +36,7 @@ public class UserAccount {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();;
 
     public UserAccount() {
     }
