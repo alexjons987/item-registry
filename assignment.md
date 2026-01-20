@@ -30,14 +30,14 @@ You will develop a backend system (API) in Java with Spring Boot.
   * Entity/Model ✔️
   * DTOs ✔️
 ### 3.2 REST API
-* The API should follow REST principles
+* The API should follow REST principles ✔️
 * At least:
-  * `GET` 
+  * `GET` ✔️
   * `POST` ✔️
-  * `PUT` or `PATCH`
-  * `DELETE`
-* JSON should be used for request/response
-* Correct use of HTTP status codes
+  * `PUT` or `PATCH` ❌
+  * `DELETE` ❌
+* JSON should be used for request/response ✔️
+* Correct use of HTTP status codes ✔️
 * JWT token for logging in to the API ✔️
 ### 3.3 Database (MySQL)
 * The system should use MySQL ✔️
@@ -49,17 +49,17 @@ You will develop a backend system (API) in Java with Spring Boot.
 * The application should be containerized ❌
 * Requirements:
   * `Dockerfile` for the Spring Boot application ❌
-  * `docker-compose.yml` that starts: ❌
-    * The backend application
-    * The MySQL database
+  * `docker-compose.yml` that starts:
+    * The backend application ❌
+    * The MySQL database ❌
 The application should be able to be started with: `docker-compose up` ❌
 ### 3.5 Testing
-* The project should contain **automated tests**
+* The project should contain **automated tests** ❌
 * At least:
-  * Unit tests (JUnit)
-  * Tests for service or controller layers
-* The tests should be able to be run via Maven/Gradle
-* The tests should test **functionality**, not just that the code compiles
+  * Unit tests (JUnit) ❌
+  * Tests for service or controller layers ❌
+* The tests should be able to be run via Maven/Gradle ❌
+* The tests should test **functionality**, not just that the code compiles ❌
 ### 3.6 Git & GitHub
 * The project should be in a GitHub repository ✔️
 * Requirements:
@@ -67,7 +67,7 @@ The application should be able to be started with: `docker-compose up` ❌
   * Clear commit messages ✔️
 * The repository should contain:
   * README.md ✔️
-  * Instructions for how to run the project
+  * Instructions for how to run the project ❌
 ## 4. Documentation (mandatory)
 **`README.md` should contain:**
 * Project description
