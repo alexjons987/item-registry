@@ -25,6 +25,7 @@ jobs:
 
       # Build and run tests
       - name: Build and run tests
+        working-directory: ./item-registry
         env:
           SPRING_PROFILES_ACTIVE: test
           SECRET: ${{ secrets.SECRET }}
