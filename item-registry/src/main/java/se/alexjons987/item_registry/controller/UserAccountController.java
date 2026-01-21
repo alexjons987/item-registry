@@ -23,11 +23,11 @@ public class UserAccountController {
 
     @GetMapping("/all")
     public ResponseEntity<?> listUsers() {
-        return ResponseEntity.status(501).build(); // TODO: Implement, list all users and their "value"
+        return ResponseEntity.status(501).build(); // TODO: Implement, list all users and their account value
     }
 
     @GetMapping("/top")
     public ResponseEntity<?> listTopUsers() {
-        return ResponseEntity.status(501).build(); // TODO: Implement, top 10 based on "value"
+        return ResponseEntity.status(501).build(); // TODO: Implement, top 10 based on account value
     }
 }
