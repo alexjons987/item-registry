@@ -46,20 +46,20 @@ You will develop a backend system (API) in Java with Spring Boot.
   * 2–3 related tables (relationships should be used, e.g. OneToMany) ✔️
 * Database structure should be reasonably normalized ✔️
 ### 3.4 Docker
-* The application should be containerized ❌
+* The application should be containerized ✔️
 * Requirements:
-  * `Dockerfile` for the Spring Boot application ❌
+  * `Dockerfile` for the Spring Boot application ✔️
   * `docker-compose.yml` that starts:
-    * The backend application ❌
-    * The MySQL database ❌
-The application should be able to be started with: `docker-compose up` ❌
+    * The backend application ✔️
+    * The MySQL database ✔️
+The application should be able to be started with: `docker compose up` ✔️
 ### 3.5 Testing
-* The project should contain **automated tests** ❌
+* The project should contain **automated tests** through **GitHub Actions** ✔️
 * At least:
-  * Unit tests (JUnit) ❌
-  * Tests for service or controller layers ❌
-* The tests should be able to be run via Maven/Gradle ❌
-* The tests should test **functionality**, not just that the code compiles ❌
+  * Unit tests (JUnit) ✔️
+  * Tests for service or controller layers ✔️
+* The tests should be able to be run via Maven/Gradle ✔️
+* The tests should test **functionality**, not just that the code compiles ✔️
 ### 3.6 Git & GitHub
 * The project should be in a GitHub repository ✔️
 * Requirements:

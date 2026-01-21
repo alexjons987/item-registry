@@ -1,0 +1,53 @@
+services:
+  item-registry-db:
+    image: mysql:8.0
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+    volumes:
+      - data:/var/lib/mysql
+
+    networks:
+      - irnet
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  item-registry-api:
+    build: .
+    restart: "no"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://item-registry-db:${MYSQL_PORT}/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+
+      SECRET: ${SECRET}
+
+    depends_on:
+      item-registry-db:
+        condition: service_healthy
+
+    networks:
+      - irnet
+
+    ports:
+      - "8080:8080"
+
+
+networks:
+  irnet:
+    driver: bridge
+
+
+volumes:
+  data:
+    driver: local
