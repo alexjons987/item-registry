@@ -25,4 +25,7 @@ jobs:
 
       # Build and run tests
       - name: Build and run tests
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          SECRET: ${{ secrets.SECRET }}
         run: mvn -B clean verify
