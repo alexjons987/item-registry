@@ -2,6 +2,7 @@ package se.alexjons987.item_registry.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -46,6 +47,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsernameAlreadyTakenException.class) // Username already in use/taken
     public ResponseEntity<Map<String, Object>> handleUsernameTaken(UsernameAlreadyTakenException ex) {
         HttpStatus httpStatus = HttpStatus.CONFLICT;
+        Map<String, Object> body = new HashMap<>();
+
+        body.put("error", ex.getMessage());
+        body.put("status", httpStatus.value());
+        body.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.status(httpStatus).body(body);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthException(AuthenticationException ex) {
+        HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
         Map<String, Object> body = new HashMap<>();
 
         body.put("error", ex.getMessage());
