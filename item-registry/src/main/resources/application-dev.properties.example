@@ -1,0 +1,29 @@
+spring.application.name=Item Registry
+
+# Default
+jwt.secret=${SECRET}
+
+# Database config (dev)
+spring.datasource.url=jdbc:mysql://localhost:3306/${DB_NAME}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+
+# JPA config
+# create - deletes tables on every startup and re-creates them
+# update - keep existing tables (use in dev)
+# validate - performs checks if tables exists (use in prod)
+spring.jpa.hibernate.ddl-auto=update
+
+# Valfritt: ange databasdialekt
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.defer-datasource-initialization=true
+
+spring.sql.init.mode=always
+
+# Logging (for dev-mode)
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+logging.level.org.springframework.data=DEBUG
+logging.level.org.springframework.security=TRACE
