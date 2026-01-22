@@ -27,9 +27,10 @@ public class InventoryController {
     }
 
     // Remove item DELETE
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteItem() {
-        return ResponseEntity.status(501).build(); // TODO: Implement, delete item based on ID for logged in user (JWT)
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteItem(@PathVariable Long id, Authentication authentication) {
+        inventoryService.deleteItem(id, authentication);
+        return ResponseEntity.noContent().build();
     }
 
     // Edit item PATCH

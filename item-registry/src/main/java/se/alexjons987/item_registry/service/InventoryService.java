@@ -1,5 +1,6 @@
 package se.alexjons987.item_registry.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,12 +12,15 @@ import se.alexjons987.item_registry.entity.UserAccount;
 import se.alexjons987.item_registry.entity.UserAchievement;
 import se.alexjons987.item_registry.enums.Quality;
 import se.alexjons987.item_registry.exception.AchievementNotFoundException;
+import se.alexjons987.item_registry.exception.ForbiddenOperationException;
+import se.alexjons987.item_registry.exception.ItemNotFoundException;
 import se.alexjons987.item_registry.mapper.ItemMapper;
 import se.alexjons987.item_registry.repository.AchievementRepository;
 import se.alexjons987.item_registry.repository.InventoryRepository;
 import se.alexjons987.item_registry.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -43,6 +47,7 @@ public class InventoryService {
                 .toList();
     }
 
+    @Transactional
     public ItemResponseDTO addNewItem(ItemRequestDTO itemRequestDTO, Authentication authentication) {
 
         UserAccount user = userRepository.findByUsername(authentication.getName())
@@ -67,6 +72,21 @@ public class InventoryService {
         userRepository.save(user);
 
         return itemMapper.toResponseDTO(savedItem);
+    }
+
+    @Transactional
+    public void deleteItem(Long id, Authentication authentication) {
+        UserAccount user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Item itemToDelete = inventoryRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Item with ID " + id + " does not exist"));
+
+        if (!itemToDelete.getOwner().getId().equals(user.getId())) {
+            throw new ForbiddenOperationException("You do not have permission to delete this item");
+        }
+
+        inventoryRepository.delete(itemToDelete);
     }
 
     private void updateUserAchievements(UserAccount userAccount, Item item) {
