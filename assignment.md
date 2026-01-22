@@ -34,7 +34,7 @@ You will develop a backend system (API) in Java with Spring Boot.
 * At least:
   * `GET` ✔️
   * `POST` ✔️
-  * `PUT` or `PATCH` ❌
+  * `PUT` or `PATCH` ✔️
   * `DELETE` ✔️
 * JSON should be used for request/response ✔️
 * Correct use of HTTP status codes ✔️
@@ -67,11 +67,11 @@ The application should be able to be started with: `docker compose up` ✔️
   * Clear commit messages ✔️
 * The repository should contain:
   * README.md ✔️
-  * Instructions for how to run the project ❌
+  * Instructions for how to run the project ✔️
 ## 4. Documentation (mandatory)
 **`README.md` should contain:**
-* Project description ❌
+* Project description ✔️
 * Choice of technology ❌
-* How to run the project (locally and with Docker) ❌
+* How to run the project (locally and with Docker) ✔️
 * API examples (endpoints + JSON examples) ❌
 * Any known limitations ❌
