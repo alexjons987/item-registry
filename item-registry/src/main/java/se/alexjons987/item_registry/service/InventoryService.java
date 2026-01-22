@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import se.alexjons987.item_registry.dto.ItemEditRequestDTO;
 import se.alexjons987.item_registry.dto.ItemRequestDTO;
 import se.alexjons987.item_registry.dto.ItemResponseDTO;
 import se.alexjons987.item_registry.entity.Item;
@@ -82,11 +83,64 @@ public class InventoryService {
         Item itemToDelete = inventoryRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Item with ID " + id + " does not exist"));
 
-        if (!itemToDelete.getOwner().getId().equals(user.getId())) {
+        if (!isItemOwnedByUser(itemToDelete, user)) {
             throw new ForbiddenOperationException("You do not have permission to delete this item");
         }
 
+        user.setValue(user.getValue() - itemToDelete.getValue());
+
+        userRepository.save(user);
+
         inventoryRepository.delete(itemToDelete);
+    }
+
+    public ItemResponseDTO editItem(ItemEditRequestDTO itemEditRequestDTO, Long itemId, Authentication authentication) {
+        UserAccount user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Item item = inventoryRepository.findById(itemId).orElseThrow(() ->
+                new ItemNotFoundException("Item with ID " + itemId + " does not exist")
+        );
+
+        if (!isItemOwnedByUser(item, user)) {
+            throw new ForbiddenOperationException("You do not have permission to edit this item");
+        }
+
+        Long oldItemValue = item.getValue(); // current DB value
+
+        if (itemEditRequestDTO.getValue() != null) {
+            Long newItemValue = itemEditRequestDTO.getValue();
+            user.setValue(user.getValue() - oldItemValue + newItemValue);
+            item.setValue(newItemValue);
+        }
+
+        if (itemEditRequestDTO.getLevel() != null) {
+            item.setLevel(itemEditRequestDTO.getLevel());
+        }
+
+        if (itemEditRequestDTO.getName() != null) {
+            item.setName(itemEditRequestDTO.getName());
+        }
+
+        if (itemEditRequestDTO.getQuality() != null) {
+            item.setQuality(itemEditRequestDTO.getQuality());
+        }
+
+        if (itemEditRequestDTO.getOrigin() != null) {
+            item.setOrigin(itemEditRequestDTO.getOrigin());
+        }
+
+        updateUserAchievements(user, item);
+
+        userRepository.save(user);
+        Item savedItem = inventoryRepository.save(item);
+
+        return itemMapper.toResponseDTO(savedItem);
+    }
+
+    // Util
+    private boolean isItemOwnedByUser(Item item, UserAccount userAccount) {
+        return item.getOwner().getId().equals(userAccount.getId());
     }
 
     private void updateUserAchievements(UserAccount userAccount, Item item) {

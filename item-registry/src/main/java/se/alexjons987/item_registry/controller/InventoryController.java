@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import se.alexjons987.item_registry.dto.ItemEditRequestDTO;
 import se.alexjons987.item_registry.dto.ItemRequestDTO;
+import se.alexjons987.item_registry.dto.ItemResponseDTO;
 import se.alexjons987.item_registry.service.InventoryService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/inventory")
@@ -16,13 +20,14 @@ public class InventoryController {
     InventoryService inventoryService;
 
     @GetMapping
-    public ResponseEntity<?> getCurrentUserInventory(Authentication authentication) {
+    public ResponseEntity<List<ItemResponseDTO>> getCurrentUserInventory(Authentication authentication) {
         return ResponseEntity.ok(inventoryService.getCurrentUserInventory(authentication));
     }
 
     // Add item POST
     @PostMapping("/add")
-    public ResponseEntity<?> addItem(@Valid @RequestBody ItemRequestDTO itemReqDTO, Authentication authentication) {
+    public ResponseEntity<ItemResponseDTO> addItem(@Valid @RequestBody ItemRequestDTO itemReqDTO,
+                                                   Authentication authentication) {
         return ResponseEntity.ok(inventoryService.addNewItem(itemReqDTO, authentication));
     }
 
@@ -34,8 +39,10 @@ public class InventoryController {
     }
 
     // Edit item PATCH
-    @PatchMapping("/edit")
-    public ResponseEntity<?> editItem() {
-        return ResponseEntity.status(501).build(); // TODO: Implement, edit item based on ID for logged in user
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<ItemResponseDTO> editItem(@Valid @RequestBody ItemEditRequestDTO itemEditReqDTO,
+                                                    @PathVariable Long id,
+                                                    Authentication authentication) {
+        return ResponseEntity.ok(inventoryService.editItem(itemEditReqDTO, id, authentication));
     }
 }
