@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.alexjons987.item_registry.config.JwtUtil;
+import se.alexjons987.item_registry.dto.LoginResponseDTO;
 import se.alexjons987.item_registry.dto.UserAccountRequestDTO;
 import se.alexjons987.item_registry.dto.UserAccountResponseDTO;
 import se.alexjons987.item_registry.service.AuthService;
@@ -35,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody UserAccountRequestDTO userAccountRequestDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody UserAccountRequestDTO userAccountRequestDTO) {
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userAccountRequestDTO.getUsername(),
@@ -45,6 +46,6 @@ public class AuthController {
 
         String role = authentication.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
 
-        return ResponseEntity.ok(jwtUtil.generateToken(userAccountRequestDTO.getUsername(), role));
+        return ResponseEntity.ok(new LoginResponseDTO(jwtUtil.generateToken(userAccountRequestDTO.getUsername(), role)));
     }
 }

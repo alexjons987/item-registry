@@ -21,7 +21,6 @@ import se.alexjons987.item_registry.repository.InventoryRepository;
 import se.alexjons987.item_registry.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
