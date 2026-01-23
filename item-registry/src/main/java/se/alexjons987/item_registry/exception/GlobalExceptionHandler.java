@@ -1,5 +1,6 @@
 package se.alexjons987.item_registry.exception;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -56,9 +57,33 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(httpStatus).body(body);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
+    @ExceptionHandler(AuthenticationException.class) // Authentication exception i.e. Bad credentials
     public ResponseEntity<Map<String, Object>> handleAuthException(AuthenticationException ex) {
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+        Map<String, Object> body = new HashMap<>();
+
+        body.put("error", ex.getMessage());
+        body.put("status", httpStatus.value());
+        body.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.status(httpStatus).body(body);
+    }
+
+    @ExceptionHandler(ForbiddenOperationException.class) // Authentication exception i.e. Bad credentials
+    public ResponseEntity<Map<String, Object>> handleForbiddenOperationException(ForbiddenOperationException ex) {
+        HttpStatus httpStatus = HttpStatus.FORBIDDEN;
+        Map<String, Object> body = new HashMap<>();
+
+        body.put("error", ex.getMessage());
+        body.put("status", httpStatus.value());
+        body.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.status(httpStatus).body(body);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class) // Item not found
+    public ResponseEntity<Map<String, Object>> handleItemNotFoundException(ItemNotFoundException ex) {
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
         Map<String, Object> body = new HashMap<>();
 
         body.put("error", ex.getMessage());
