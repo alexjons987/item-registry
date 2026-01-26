@@ -70,8 +70,8 @@ The application should be able to be started with: `docker compose up` ✔️
   * Instructions for how to run the project ✔️
 ## 4. Documentation (mandatory)
 **`README.md` should contain:**
-* Project description ❌
-* Choice of technology ❌
+* Project description ✔️
+* Choice of tech stack ✔️
 * How to run the project (locally and with Docker) ✔️
 * API examples (endpoints + JSON examples) ✔️
 * Any known limitations ✔️
