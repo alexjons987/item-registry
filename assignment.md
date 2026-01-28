@@ -52,6 +52,7 @@ You will develop a backend system (API) in Java with Spring Boot.
   * `docker-compose.yml` that starts:
     * The backend application ✔️
     * The MySQL database ✔️
+    
 The application should be able to be started with: `docker compose up` ✔️
 ### 3.5 Testing
 * The project should contain **automated tests** through **GitHub Actions** ✔️
