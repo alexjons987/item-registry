@@ -54,7 +54,47 @@ public class UserIntegrationTest {
     }
 
     @Test
-    @DisplayName("correct login should return 200 OK")
+    @DisplayName("register with unavailable username should return 409 Conflict")
+    void registerWithUnavailableUsernameShouldReturnConflict() throws Exception {
+
+        mockMvc.perform(post("/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "UIT",
+                                    "password": "UIT123"
+                                }
+                                """))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    @DisplayName("register as new user and login should return 200 OK")
+    void registerAndLoginShouldReturnToken() throws Exception {
+
+        mockMvc.perform(post("/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "UITNew",
+                                    "password": "UITNew123"
+                                }
+                                """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "UITNew",
+                                    "password": "UITNew123"
+                                }
+                                """))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("correct login for pre-existing user should return 200 OK")
     void correctLoginShouldReturnToken() throws Exception {
 
         mockMvc.perform(post("/auth/login")
