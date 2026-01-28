@@ -19,6 +19,7 @@ public class InventoryController {
     @Autowired
     InventoryService inventoryService;
 
+    // Get inventory GET
     @GetMapping
     public ResponseEntity<List<ItemResponseDTO>> getCurrentUserInventory(Authentication authentication) {
         return ResponseEntity.ok(inventoryService.getCurrentUserInventory(authentication));
